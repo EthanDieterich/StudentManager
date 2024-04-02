@@ -1,0 +1,8 @@
+<student>
+    <student_id>123456</student_id>
+    <first_name>John</first_name>
+    <last_name>Doe</last_name>
+    <credit_hours>60</credit_hours>
+    <year>Sophomore</year>
+    <gpa>3.5</gpa>
+</student>
