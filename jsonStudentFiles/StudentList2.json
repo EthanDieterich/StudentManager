@@ -1,0 +1,11 @@
+{
+  "students": [
+    {
+      "student_id": "675432",
+      "first_name": "Joe",
+      "last_name": "Schmoe",
+      "credit_hours": "80",
+      "year": "Junior", 
+      "gpa": "2.1"
+    }
+  ]

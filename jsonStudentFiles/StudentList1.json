@@ -1,0 +1,20 @@
+{
+  "students": [
+    {
+      "student_id": "123456",
+      "first_name": "John",
+      "last_name": "Doe",
+      "credit_hours": "60",
+      "year": "Sophomore",
+      "gpa": "3.5"
+    },
+    {
+      "student_id": "789101",
+      "first_name": "Amy",
+      "last_name": "Lee",
+      "credit_hours": "15",
+      "year": "Freshman",
+      "gpa": "2.6"
+    }
+  ]
+}
