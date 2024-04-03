@@ -1,8 +1,10 @@
-<student>
-    <student_id>675432</student_id>
-    <first_name>Joe</first_name>
-    <last_name>Schmoe</last_name>
-    <credit_hours>80</credit_hours>
-    <year>Junior</year>
-    <gpa>2.1</gpa>
-</student>
+<students>
+  <student>
+      <student_id>675432</student_id>
+      <first_name>Joe</first_name>
+      <last_name>Schmoe</last_name>
+      <credit_hours>80</credit_hours>
+      <year>Junior</year>
+      <gpa>2.1</gpa>
+  </student>
+</students>
