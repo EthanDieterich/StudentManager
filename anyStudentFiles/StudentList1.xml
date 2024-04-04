@@ -1,0 +1,19 @@
+<students>
+    <student>
+        <student_id>123456</student_id>
+        <first_name>John</first_name>
+        <last_name>Doe</last_name>
+        <credit_hours>60</credit_hours>
+        <year>Sophomore</year>
+        <gpa>3.5</gpa>
+    </student>
+
+    <student>
+        <student_id>789101</student_id>
+        <first_name>Amy</first_name>
+        <last_name>Lee</last_name>
+        <credit_hours>15</credit_hours>
+        <year>Freshman</year>
+        <gpa>2.6</gpa>
+    </student>
+</students>

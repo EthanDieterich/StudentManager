@@ -87,13 +87,18 @@ def csv_File_Reader(file_path, students):
             students.append(student)
     return students
 
+def any_File_Reader(file_path, students):
+    print(file_path)
+    print(file_path[-3:])
+    return students
 
     
 def folder_Open(file_type):
     file_readers = {
     'xml' : xml_File_Reader,
     'json' : json_File_Reader,
-    'csv' : csv_File_Reader
+    'csv' : csv_File_Reader,
+    'any' : any_File_Reader
     }
     folder_path = os.path.join(os.getcwd(), file_type+"StudentFiles" )
     #print(folder_path)
@@ -110,12 +115,14 @@ def read_Files_Menu(students):
     file_types = {
         '1' : "xml",
         '2' : "json",
-        '3' : "csv"
+        '3' : "csv",
+        '4' : "any"
         }
     print("Load Data Menu:")
-    print("1. Open .xml type files")
-    print("2. Open .json type files")
-    print("3. Open .csv type files")
+    print("1. Open .xml type files (xmlStudentFiles)")
+    print("2. Open .json type files (jsonStudentFiles)")
+    print("3. Open .csv type files (csvStudentFiles)")
+    print("4. Open any type files (anyStudentFiles")
     choice = input("Enter Your Choice: ")
     print()
     if choice in file_types:
