@@ -87,13 +87,14 @@ def csv_File_Reader(file_path, students):
             students.append(student)
     return students
 
-file_readers = {
+
+    
+def folder_Open(file_type):
+    file_readers = {
     'xml' : xml_File_Reader,
     'json' : json_File_Reader,
     'csv' : csv_File_Reader
     }
-    
-def folder_Open(file_type):
     folder_path = os.path.join(os.getcwd(), file_type+"StudentFiles" )
     #print(folder_path)
     #print(os.listdir(folder_path))
@@ -105,7 +106,7 @@ def folder_Open(file_type):
         
     return students
     
-def initial_Menu():
+def read_Files_Menu(students):
     file_types = {
         '1' : "xml",
         '2' : "json",
@@ -118,39 +119,42 @@ def initial_Menu():
     choice = input("Enter Your Choice: ")
     print()
     if choice in file_types:
-        students = folder_Open(file_types[choice])
+        students.extend(folder_Open(file_types[choice]))
     else: 
         print("Invalid Choice")
     return students
         
+#def read_
+    
+    
+    
 if __name__ == '__main__':
-    student_roster = initialMenu()
-    Student.print_Students(student_roster)
+    student_roster = []
     menu = {
-        '1': ,
-        '2': ,
-        '3': ,
-        '4': ,
-        '5': ,
-        '6': 
+        '1': read_Files_Menu,
+        '2': Student.print_Students,
+        #'3': ,
+        #'4': ,
+        #'5': ,
+        #'6': 
         }
     while True:
         print("---------------")
         
         print("Main Menu:")
-        print("1.")
-        print("2.")
-        print("3.")
+        print("1. Read Files")
+        print("2. Print Student Roster")
+        print("3. Sort Student Roster")
         print("4.")
         print("5.")
-        print("6.")
+        print("6. Save Student Roster")
         print("7. Exit")
         print("---------------")
     
         choice = input("Enter Your Choice: ")
         print()
         if choice in menu:
-            menu[choice]()
+            menu[choice](student_roster)
         elif choice == '7':
             print('bye')
             break
