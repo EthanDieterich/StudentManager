@@ -1,12 +1,27 @@
 # -*- coding: utf-8 -*-
 """
 Student Manager by Ethan Dieterich
-This code uses 3 folder in the directory xmlStudentFiles, jsonStudentFiles, and csvStudentFiles
+This code uses 4 folder in the directory anyStudentFiles, xmlStudentFiles, jsonStudentFiles, and csvStudentFiles
 """
 import os
 import xml.etree.ElementTree as ET
 import json
 import csv
+class Student_Roster:
+    def __init__ (self):
+        self.students = []
+        
+    def lastName_sort(self):
+        print("sort by last name")
+        
+    def studentID_sort(self):
+        print()
+        
+    def print_Student_Roster(self):
+        for student in self.students:
+            Student.display_Student(student) 
+
+
 
 class Student:
     def __init__ (self, student_id, first_name, last_name, credit_hours, year, gpa):
@@ -16,6 +31,12 @@ class Student:
         self.credit_hours = credit_hours
         self.year = year
         self.gpa = gpa
+        
+    def lastName_sort(students):
+        print("sort by last name")
+        
+    def studentID_sort(students):
+        print()
         
     
         
@@ -31,8 +52,10 @@ class Student:
             Student.display_Student(student) 
    
 def xml_File_Reader(file_path, students):
+    print("Loading:",file_path)
     tree = ET.parse(file_path)
     root = tree.getroot()
+    
     #iterate through each student in xml file
     for student_element in root.findall('student'):    
         student_id = student_element.find("student_id").text
@@ -46,9 +69,9 @@ def xml_File_Reader(file_path, students):
         student = Student(student_id, first_name, last_name, credit_hours,year, gpa)
         students.append(student)
     return students
-    
-    
+      
 def json_File_Reader(file_path, students):
+    print("Loading:",file_path)
     #Open Json File
     with open(file_path, 'r') as file:
         students_data = json.load(file)
@@ -66,10 +89,10 @@ def json_File_Reader(file_path, students):
         #make student object and add student to list
         student = Student(student_id, first_name, last_name, credit_hours,year, gpa)
         students.append(student)
-    return students
-        
+    return students     
     
 def csv_File_Reader(file_path, students):
+    print("Loading:",file_path)
     with open(file_path,'r') as file:
         csv_reader = csv.reader(file)
         next(csv_reader)
@@ -88,10 +111,16 @@ def csv_File_Reader(file_path, students):
     return students
 
 def any_File_Reader(file_path, students):
-    print(file_path)
-    print(file_path[-3:])
+    fileType = file_path[-3:] 
+    if fileType == "xml":
+        xml_File_Reader(file_path, students)
+    elif fileType == "son":
+        json_File_Reader(file_path, students)
+    elif fileType == "csv":
+        csv_File_Reader(file_path, students)
+    else:
+        print("Invalid File Type")
     return students
-
     
 def folder_Open(file_type):
     file_readers = {
@@ -101,11 +130,15 @@ def folder_Open(file_type):
     'any' : any_File_Reader
     }
     folder_path = os.path.join(os.getcwd(), file_type+"StudentFiles" )
-    #print(folder_path)
-    #print(os.listdir(folder_path))
+    
     files = os.listdir(folder_path)
+    #Verify correct file types and remove outliers
     students = []
     for file_name in files:
+        if file_type[-3:] != file_name[-3] and file_type != "any" :
+            print("Invalid File Type")
+            continue
+        elif 
         file_path = os.path.join(folder_path, file_name)
         file_readers[file_type](file_path, students)
         
@@ -131,8 +164,25 @@ def read_Files_Menu(students):
         print("Invalid Choice")
     return students
         
-#def read_
-    
+def sort_Students_Menu(students):
+    sort_types = {
+        '1' : "lastName",
+        '2' : "studentID",
+        '3' : "GPA",
+        '4' : "creditHours"
+        }
+    print("Sort Students Menu:")
+    print("1. Sort by last name")
+    print("2. Sort by Student ID")
+    print("3. Sort by GPA")
+    print("4. Sort by Credit Hours")
+    choice = input("Enter Your Choice: ")
+    print()
+    if choice in sort_types:
+        students = Student.sort_types[choice]_Sort(students)
+    else: 
+        print("Invalid Choice")
+    return students
     
     
 if __name__ == '__main__':
@@ -140,7 +190,7 @@ if __name__ == '__main__':
     menu = {
         '1': read_Files_Menu,
         '2': Student.print_Students,
-        #'3': ,
+        '3': sort_Students_Menu ,
         #'4': ,
         #'5': ,
         #'6': 
@@ -163,10 +213,10 @@ if __name__ == '__main__':
         if choice in menu:
             menu[choice](student_roster)
         elif choice == '7':
-            print('bye')
+            print('Goodbye')
             break
         else:
-            print("invalid choice")
+            print("Invalid Choice")
 
     
     
