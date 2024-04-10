@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 Student Manager by Ethan Dieterich
-This code uses 4 folder in the directory anyStudentFiles, xmlStudentFiles, jsonStudentFiles, and csvStudentFiles Edit in VS
+This code uses 4 folder in the directory anyStudentFiles, xmlStudentFiles, jsonStudentFiles, and csvStudentFiles
 """
 import os
 import xml.etree.ElementTree as ET
 import json
 import csv
-
 
 class Student_Roster:
     def __init__ (self):
