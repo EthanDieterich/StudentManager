@@ -125,8 +125,7 @@ def folder_Open(file_type):
     folder_path = os.path.join(os.getcwd(), file_type+"StudentFiles" )
     
     files = os.listdir(folder_path)
-    #Verify correct file types and remove outliers
-    students = []
+    
     for file_name in files:
         if file_type[-3:] != file_name[-3] and file_type != "any" :
             print("Invalid File Type")
@@ -157,13 +156,7 @@ def read_Files_Menu(students):
         print("Invalid Choice")
     return students
         
-def sort_Students_Menu(students):
-    sort_types = {
-        '1' : "lastName",
-        '2' : "studentID",
-        '3' : "GPA",
-        '4' : "creditHours"
-        }
+def sort_Students_Menu(roster):
     print("Sort Students Menu:")
     print("1. Sort by last name")
     print("2. Sort by Student ID")
@@ -171,76 +164,79 @@ def sort_Students_Menu(students):
     print("4. Sort by Credit Hours")
     choice = input("Enter Your Choice: ")
     print()
-    if choice in sort_types:
-        students = Student.sort_types[choice]_Sort(students)
-    else: 
-        print("Invalid Choice")
-    return students
+    match choice:
+        case 1:
+            roster.lastName_Sort()
+        case 2:
+            roster.studentID_Sort()
+        case 3:
+            roster.GPA_Sort()
+        case 4:
+            roster.creditHours_Sort()
+        case _:
+            print("Invalid Choice")
+    
     
 def select_Roster_Menu(roster_options):
     while True:
-    sort_types = {
-        '1' : "lastName",
-        '2' : "studentID",
-        '3' : "GPA",
-        '4' : "creditHours"
-        }
-    print("Sort Students Menu:")
-    print("1. Sort by last name")
-    print("2. Sort by Student ID")
-    print("3. Sort by GPA")
-    print("4. Sort by Credit Hours")
-    choice = input("Enter Your Choice: ")
-    print()
-    if choice in sort_types:
-        students = Student.sort_types[choice]_Sort(students)
-    else: 
-        print("Invalid Choice")
-    return students
-        print("Student Roster Selection Menu: )
+        #Menu Options
+        print("Student Roster Selection Menu: ")
+        print("0. Create new roster")
         if len(roster_options) == 0:
             print("No existing rosters to select from.")
         else: 
             for key, value in roster_options.items():
-                print(key+".", value)
+                print(str(key)+".", value)
+        choice = input("Enter Your Choice: ")
         
+        #User Selection
+        if choice in roster_options:
+            return roster_options[choice]
+        elif choice == "0":
+            index = len(roster_options)+1
+            roster_name = input("Enter New Roster Name: ")
+            roster_options[index] = roster_name
+            roster_options[index] = Student_Roster()
+        else:
+            print("Invalid Choice")
+            
     
 if __name__ == '__main__':
     roster_options = {}
-    select_Roster_Menu(roster_options)
+    roster = select_Roster_Menu(roster_options)
     
-    menu = {
-        '1': read_Files_Menu,
-        '2': Student.print_Students,
-        '3': sort_Students_Menu ,
-        #'4': ,
-        #'5': ,
-        #'6': 
-        }
     while True:
         print("---------------")
-        
         print("Main Menu:")
         print("1. Read Files")
         print("2. Print Student Roster")
         print("3. Sort Student Roster")
-        print("4.")
+        print("4. Select/Create Student Roster")
         print("5.")
         print("6. Save Student Roster")
         print("7. Exit")
-        print("---------------")
-    
+        print("---------------")    
         choice = input("Enter Your Choice: ")
-        print()
-        if choice in menu:
-            menu[choice](student_roster)
-        elif choice == '7':
-            print('Goodbye')
-            break
-        else:
-            print("Invalid Choice")
-
-    
+        
+        match choice:
+            case 1:
+                read_Files_Menu(selected_Roster)
+            case 2:
+                roster.print_Student_Roster()
+            case 3:
+                sort_Students_Menu(roster)
+            case 4:
+                roster = select_Roster_Menu(roster_options)
+            case 5:
+                print("placeholder")
+            case 6:
+                print("placeholder")
+            case 7:
+                print('Goodbye')
+                break
+            case _:
+                print("Invalid Choice")
+            
     
     
 
