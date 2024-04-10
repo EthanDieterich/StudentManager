@@ -7,20 +7,25 @@ import os
 import xml.etree.ElementTree as ET
 import json
 import csv
+
+
 class Student_Roster:
     def __init__ (self):
         self.students = []
+        
+    def add_Student(self, student):
+        self.students.append(student)
         
     def lastName_sort(self):
         print("sort by last name")
         
     def studentID_sort(self):
-        print()
+        print("sort by student ID")
         
+    
     def print_Student_Roster(self):
         for student in self.students:
             Student.display_Student(student) 
-
 
 
 class Student:
@@ -32,25 +37,13 @@ class Student:
         self.year = year
         self.gpa = gpa
         
-    def lastName_sort(students):
-        print("sort by last name")
-        
-    def studentID_sort(students):
-        print()
-        
-    
-        
     def display_Student(self):
-        print("Name:", self.first_name+",", self.last_name)
+        print("Name:", self.first_name, self.last_name)
         print("Credits:", self.credit_hours)
         print("Grade Level:", self.year)
         print("GPA(Out of 4.0):", self.gpa)
         print("----------------------")
         
-    def print_Students(students):
-        for student in students:
-            Student.display_Student(student) 
-   
 def xml_File_Reader(file_path, students):
     print("Loading:",file_path)
     tree = ET.parse(file_path)
@@ -184,9 +177,38 @@ def sort_Students_Menu(students):
         print("Invalid Choice")
     return students
     
+def select_Roster_Menu(roster_options):
+    while True:
+    sort_types = {
+        '1' : "lastName",
+        '2' : "studentID",
+        '3' : "GPA",
+        '4' : "creditHours"
+        }
+    print("Sort Students Menu:")
+    print("1. Sort by last name")
+    print("2. Sort by Student ID")
+    print("3. Sort by GPA")
+    print("4. Sort by Credit Hours")
+    choice = input("Enter Your Choice: ")
+    print()
+    if choice in sort_types:
+        students = Student.sort_types[choice]_Sort(students)
+    else: 
+        print("Invalid Choice")
+    return students
+        print("Student Roster Selection Menu: )
+        if len(roster_options) == 0:
+            print("No existing rosters to select from.")
+        else: 
+            for key, value in roster_options.items():
+                print(key+".", value)
+        
     
 if __name__ == '__main__':
-    student_roster = []
+    roster_options = {}
+    select_Roster_Menu(roster_options)
+    
     menu = {
         '1': read_Files_Menu,
         '2': Student.print_Students,
