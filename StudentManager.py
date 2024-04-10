@@ -51,6 +51,7 @@ class Student:
 def xml_File_Reader(file_path, roster):
     #Check correct file type
     if file_path[-3] != "xml":
+        print("Invalid File Type")
         return
 
     print("Loading:",file_path)
@@ -75,6 +76,7 @@ def xml_File_Reader(file_path, roster):
 def json_File_Reader(file_path, roster):
     #Check correct file type
     if file_path[-4] != "json":
+        print("Invalid File Type")
         return
 
     print("Loading:",file_path)
@@ -100,6 +102,7 @@ def json_File_Reader(file_path, roster):
 def csv_File_Reader(file_path, roster):
     #Check correct file type
     if file_path[-3] != "csv":
+        print("Invalid File Type")
         return
 
     print("Loading:",file_path)
@@ -148,7 +151,7 @@ def folder_Open(file_type, roster):
     for file_name in files:
         file_path = os.path.join(folder_path, file_name)
         file_readers[file_type](file_path, roster)
-        
+    return
     
 def read_Files_Menu(roster):
     file_types = {
@@ -167,6 +170,7 @@ def read_Files_Menu(roster):
         folder_Open(file_types[choice], roster)
     else: 
         print("Invalid Choice")
+    return
         
 def sort_Students_Menu(roster):
     print("Sort Students Menu:")
