@@ -20,7 +20,12 @@ class Student_Roster:
         
     def studentID_sort(self):
         print("sort by student ID")
-        
+
+    def GPA_Sort(self):
+        print("sort by GPA")
+    
+    def creditHours_Sort(self):
+        print("sort by credit hours")
     
     def print_Student_Roster(self):
         for student in self.students:
@@ -43,8 +48,13 @@ class Student:
         print("GPA(Out of 4.0):", self.gpa)
         print("----------------------")
         
-def xml_File_Reader(file_path, students):
+def xml_File_Reader(file_path, roster):
+    #Check correct file type
+    if file_path[-3] != "xml":
+        return
+
     print("Loading:",file_path)
+    #Open xml File
     tree = ET.parse(file_path)
     root = tree.getroot()
     
@@ -57,14 +67,18 @@ def xml_File_Reader(file_path, students):
         year = student_element.find("year").text
         gpa = student_element.find("gpa").text
         
-        #make student object and add student to list
+        #make student object and add student to roster
         student = Student(student_id, first_name, last_name, credit_hours,year, gpa)
-        students.append(student)
-    return students
+        roster.add_Student(student)
+    return 
       
-def json_File_Reader(file_path, students):
+def json_File_Reader(file_path, roster):
+    #Check correct file type
+    if file_path[-4] != "json":
+        return
+
     print("Loading:",file_path)
-    #Open Json File
+    #Open json File
     with open(file_path, 'r') as file:
         students_data = json.load(file)
     
@@ -78,16 +92,23 @@ def json_File_Reader(file_path, students):
         year = student_data['year']
         gpa = student_data['gpa']
         
-        #make student object and add student to list
+        #make student object and add student to roster
         student = Student(student_id, first_name, last_name, credit_hours,year, gpa)
-        students.append(student)
-    return students     
+        roster.add_Student(student)
+    return     
     
-def csv_File_Reader(file_path, students):
+def csv_File_Reader(file_path, roster):
+    #Check correct file type
+    if file_path[-3] != "csv":
+        return
+
     print("Loading:",file_path)
+    #Open csv File
     with open(file_path,'r') as file:
         csv_reader = csv.reader(file)
+        #skip header row
         next(csv_reader)
+
     # Iterate through each row in the CSV
         for student_data in csv_reader:
             student_id = student_data[0]
@@ -97,24 +118,24 @@ def csv_File_Reader(file_path, students):
             year = student_data[4]
             gpa = student_data[5] 
             
-        #make student object and add student to list
+        #make student object and add student to roster
             student = Student(student_id, first_name, last_name, credit_hours,year, gpa)
-            students.append(student)
-    return students
+            roster.add_Student(student)
+    return 
 
-def any_File_Reader(file_path, students):
+def any_File_Reader(file_path, roster):
     fileType = file_path[-3:] 
     if fileType == "xml":
-        xml_File_Reader(file_path, students)
+        xml_File_Reader(file_path, roster)
     elif fileType == "son":
-        json_File_Reader(file_path, students)
+        json_File_Reader(file_path, roster)
     elif fileType == "csv":
-        csv_File_Reader(file_path, students)
+        csv_File_Reader(file_path, roster)
     else:
         print("Invalid File Type")
-    return students
+    return 
     
-def folder_Open(file_type):
+def folder_Open(file_type, roster):
     file_readers = {
     'xml' : xml_File_Reader,
     'json' : json_File_Reader,
@@ -122,20 +143,14 @@ def folder_Open(file_type):
     'any' : any_File_Reader
     }
     folder_path = os.path.join(os.getcwd(), file_type+"StudentFiles" )
-    
     files = os.listdir(folder_path)
-    
+  
     for file_name in files:
-        if file_type[-3:] != file_name[-3] and file_type != "any" :
-            print("Invalid File Type")
-            continue
-        elif 
         file_path = os.path.join(folder_path, file_name)
-        file_readers[file_type](file_path, students)
+        file_readers[file_type](file_path, roster)
         
-    return students
     
-def read_Files_Menu(students):
+def read_Files_Menu(roster):
     file_types = {
         '1' : "xml",
         '2' : "json",
@@ -146,14 +161,12 @@ def read_Files_Menu(students):
     print("1. Open .xml type files (xmlStudentFiles)")
     print("2. Open .json type files (jsonStudentFiles)")
     print("3. Open .csv type files (csvStudentFiles)")
-    print("4. Open any type files (anyStudentFiles")
+    print("4. Open any type files (anyStudentFiles)")
     choice = input("Enter Your Choice: ")
-    print()
     if choice in file_types:
-        students.extend(folder_Open(file_types[choice]))
+        folder_Open(file_types[choice], roster)
     else: 
         print("Invalid Choice")
-    return students
         
 def sort_Students_Menu(roster):
     print("Sort Students Menu:")
@@ -173,8 +186,7 @@ def sort_Students_Menu(roster):
         case 4:
             roster.creditHours_Sort()
         case _:
-            print("Invalid Choice")
-    
+            print("Invalid Choice")   
     
 def select_Roster_Menu(roster_options):
     while True:
@@ -219,7 +231,7 @@ if __name__ == '__main__':
         
         match choice:
             case 1:
-                read_Files_Menu(selected_Roster)
+                read_Files_Menu(roster)
             case 2:
                 roster.print_Student_Roster()
             case 3:
