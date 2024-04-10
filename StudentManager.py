@@ -16,22 +16,25 @@ class Student_Roster:
     def add_Student(self, student):
         self.students.append(student)
         
-    def lastName_sort(self):
-        print("sort by last name")
+    def lastName_Sort(self):
+        self.students.sort(key = Student.get_lastName)
+        print("Roster sorted by last name")
         
-    def studentID_sort(self):
+    def studentID_Sort(self):
+        self.students.sort(key = Student.get_studentID)
         print("sort by student ID")
 
     def GPA_Sort(self):
+        self.students.sort(key = Student.get_gpa)
         print("sort by GPA")
     
     def creditHours_Sort(self):
+        self.students.sort(key = Student.get_creditHours)
         print("sort by credit hours")
     
     def print_Student_Roster(self):
         for student in self.students:
             Student.display_Student(student) 
-
 
 class Student:
     def __init__ (self, student_id, first_name, last_name, credit_hours, year, gpa):
@@ -43,15 +46,27 @@ class Student:
         self.gpa = gpa
         
     def display_Student(self):
+        print("---------------")
         print("Name:", self.first_name, self.last_name)
         print("Credits:", self.credit_hours)
         print("Grade Level:", self.year)
         print("GPA(Out of 4.0):", self.gpa)
-        print("----------------------")
+        
+    def get_lastName(self):
+        return self.last_name
+    
+    def get_studentID(self):
+        return self.student_id
+    
+    def get_gpa(self):
+        return self.gpa
+    
+    def get_creditHours(self):
+        return self.credit_hours
         
 def xml_File_Reader(file_path, roster):
     #Check correct file type
-    if file_path[-3] != "xml":
+    if not file_path.endswith(".xml"):
         print("Invalid File Type")
         return
 
@@ -76,7 +91,7 @@ def xml_File_Reader(file_path, roster):
       
 def json_File_Reader(file_path, roster):
     #Check correct file type
-    if file_path[-4] != "json":
+    if not file_path.endswith(".json"):
         print("Invalid File Type")
         return
 
@@ -102,7 +117,7 @@ def json_File_Reader(file_path, roster):
     
 def csv_File_Reader(file_path, roster):
     #Check correct file type
-    if file_path[-3] != "csv":
+    if not file_path.endswith(".csv"):
         print("Invalid File Type")
         return
 
@@ -186,13 +201,13 @@ def sort_Students_Menu(roster):
     choice = input("Enter Your Choice: ")
     print()
     match choice:
-        case 1:
+        case "1":
             roster.lastName_Sort()
-        case 2:
+        case "2":
             roster.studentID_Sort()
-        case 3:
+        case "3":
             roster.GPA_Sort()
-        case 4:
+        case "4":
             roster.creditHours_Sort()
         case _:
             print("Invalid Choice")   
@@ -201,7 +216,7 @@ def select_Roster_Menu(roster_options):
     while True:
         #Menu Options
         print("---------------")
-        print("Student Roster Selection Menu: ")
+        print("Roster Selection Menu: ")
         print("0. Create new roster")
         if len(roster_options) == 0:
             print("No existing rosters to select from.")
@@ -212,10 +227,10 @@ def select_Roster_Menu(roster_options):
         choice = input("Enter Your Choice: ")
         
         #User Selection
-        if choice in roster_options:
+        if choice in roster_options.keys():
             return roster_options[choice]
         elif choice == "0":
-            index = len(roster_options)+1
+            index = str(len(roster_options)+1)
             roster_name = input("Enter New Roster Name: ")
             roster_options[index] = roster_name
             roster_options[index] = Student_Roster(roster_name)
