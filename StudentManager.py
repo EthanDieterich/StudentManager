@@ -9,7 +9,8 @@ import json
 import csv
 
 class Student_Roster:
-    def __init__ (self):
+    def __init__ (self, name):
+        self.name = name
         self.students = []
         
     def add_Student(self, student):
@@ -160,11 +161,13 @@ def read_Files_Menu(roster):
         '3' : "csv",
         '4' : "any"
         }
+    print("---------------")
     print("Load Data Menu:")
     print("1. Open .xml type files (xmlStudentFiles)")
     print("2. Open .json type files (jsonStudentFiles)")
     print("3. Open .csv type files (csvStudentFiles)")
     print("4. Open any type files (anyStudentFiles)")
+    print("---------------")
     choice = input("Enter Your Choice: ")
     if choice in file_types:
         folder_Open(file_types[choice], roster)
@@ -173,11 +176,13 @@ def read_Files_Menu(roster):
     return
         
 def sort_Students_Menu(roster):
+    print("---------------")
     print("Sort Students Menu:")
     print("1. Sort by last name")
     print("2. Sort by Student ID")
     print("3. Sort by GPA")
     print("4. Sort by Credit Hours")
+    print("---------------")
     choice = input("Enter Your Choice: ")
     print()
     match choice:
@@ -195,13 +200,15 @@ def sort_Students_Menu(roster):
 def select_Roster_Menu(roster_options):
     while True:
         #Menu Options
+        print("---------------")
         print("Student Roster Selection Menu: ")
         print("0. Create new roster")
         if len(roster_options) == 0:
             print("No existing rosters to select from.")
         else: 
             for key, value in roster_options.items():
-                print(str(key)+".", value)
+                print(str(key)+".", value.name)
+        print("---------------")
         choice = input("Enter Your Choice: ")
         
         #User Selection
@@ -211,7 +218,8 @@ def select_Roster_Menu(roster_options):
             index = len(roster_options)+1
             roster_name = input("Enter New Roster Name: ")
             roster_options[index] = roster_name
-            roster_options[index] = Student_Roster()
+            roster_options[index] = Student_Roster(roster_name)
+            return roster_options[index]
         else:
             print("Invalid Choice")
             
@@ -234,19 +242,19 @@ if __name__ == '__main__':
         choice = input("Enter Your Choice: ")
         
         match choice:
-            case 1:
+            case "1":
                 read_Files_Menu(roster)
-            case 2:
+            case "2":
                 roster.print_Student_Roster()
-            case 3:
+            case "3":
                 sort_Students_Menu(roster)
-            case 4:
+            case "4":
                 roster = select_Roster_Menu(roster_options)
-            case 5:
+            case "5":
                 print("placeholder")
-            case 6:
+            case "6":
                 print("placeholder")
-            case 7:
+            case "7":
                 print('Goodbye')
                 break
             case _:
