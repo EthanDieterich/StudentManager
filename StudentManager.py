@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Student Manager by Ethan Dieterich
-This code uses 4 folder in the directory anyStudentFiles, xmlStudentFiles, jsonStudentFiles, and csvStudentFiles
+This code uses 4 folder in the directory anyStudentFiles, xmlStudentFiles, jsonStudentFiles, and csvStudentFiles Edit in VS
 """
 import os
 import xml.etree.ElementTree as ET
