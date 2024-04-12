@@ -3,6 +3,8 @@
 Student Manager by Ethan Dieterich
 This code uses 4 folder in the directory anyStudentFiles, xmlStudentFiles, jsonStudentFiles, and csvStudentFiles
 """
+import tkinter as tk
+from tkinter import ttk
 import os
 import xml.etree.ElementTree as ET
 import json
@@ -240,9 +242,20 @@ def select_Roster_Menu(roster_options):
             
     
 if __name__ == '__main__':
-    roster_options = {}
-    roster = select_Roster_Menu(roster_options)
     
+    #roster_options = {}
+    #roster = select_Roster_Menu(roster_options)
+    
+    #window
+    window = tk.Tk()
+    window.title('Main Menu')
+    window.geometry('500x250')
+    
+    #widgets
+    menu_label = ttk.Label(master = window, text = 'Main Menu:', font = 'Calibri 24 bold')
+    menu_label.pack()
+
+
     while True:
         print("---------------")
         print("Main Menu:")
